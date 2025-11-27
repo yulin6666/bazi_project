@@ -31,7 +31,7 @@ EXPOSE 8000
 
 # 健康检查 - 在Uvicorn开始运行后 exec-ed
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5m --retries=3 \
-    CMD python -c "import requests; requests.get('http://localhost:8000/health', timeout=1)" || exit 1
+    CMD python -c "import requests; requests.get('http://yulin15.zeabur.app:8000/health', timeout=1)" || exit 1
 
 # 启动命令，使用 exec 格式
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "2"]
+CMD ["uvicorn", "main:app", "--host", "yulin15.zeabur.app", "--port", "8000", "--workers", "2"]
