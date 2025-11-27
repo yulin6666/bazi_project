@@ -1,0 +1,31 @@
+# 建议使用 Python 3.11 > 优化的 Docker 镜像（约150MB）
+ FROM python:3.11-slim
+
+# 安装必要依赖
+ RUN apt-get update && apt-get install -y --no-install-recommends \
+    build-essential \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+ WORKDIR /app
+
+# 先复制和安装依赖，充分利用 Docker 缓存机制
+ COPY requirements.txt .
+ RUN pip install --no-cache-dir -r requirements.txt \
+    && pip cache purge
+
+# 复制应用代码
+ COPY . .
+
+# 暴露端口
+ EXPOSE 8000
+
+# Linux 输出安全模式
+ ENV PYTHONDONTWRITEBYTECODE=1 \
+     PYTHONUNBUFFERED=1
+
+# 健康检查
+ HEALTHCHECK --interval=30s --timeout=10s --start-period=5m --retries=3 \
+    CMD python -c "import requests; requests.get('http://localhost:8000/health')" || exit 1
+
+ CMD exec uvicorn main:app --host 0.0.0.0 --port 8000 --workers 3 --loop uvloop --http httptools

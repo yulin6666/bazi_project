@@ -1,0 +1,36 @@
+# Ultra-lightweight Python 3.11 with Alpine (约 26MB) build-from-scratch
+FROM python:3.11-alpine
+
+# System dependencies needed for lunar-python (C Libraries)
+RUN apk add --no-cache \n	 gcc \n     musl-dev\n    python3-dev\n    linux-headers\n && rm /var/cache/apk/*
+
+# Create app user
+RUN adduser -D -h /app -s /bin/sh app
+
+# Create directory
+WORKDIR /app
+
+# Requirements FIRST - to utilize Docker layer caching
+COPY requirements.txt requirements.txt
+RUN pip install --no-cache-dir --upgrade pip \
+ && pip3 install --no-cache-dir -r requirements.txt \
+    && rm -rf ~/.cache \
+    && apk del .build-deps || true
+
+# Copy application
+COPY --chown=app:app . .
+
+USER app
+
+# 启动D：监听所有接口
+EXPOSE 8000
+
+ENV PORT=8000\
+   PYTHONDONTWRITEBYTECODE=1\
+    PYTHONUNBUFFERED=1
+
+HEALTHCHECK --interval=30s --timeout=10s --start-period=1m --retries=3 \
+    CMD python -c "import sys; sys.exit(0 if True else 1)" && python -c " \
+        import requests \n        try:\n            __ = requests.get('http://localhost:8000/health', timeout=1)\n     print(__, 'ok')\n   except:\n     print('nok')\n     exit(1)"
+
+CMD ["python", "-m", "uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000","--loop","uvloop"]
