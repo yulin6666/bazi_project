@@ -56,13 +56,13 @@ OPENAI_BASE_URL=https://api.deepseek.com/v1
 
 5. **启动服务**
 ```bash
-uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+uvicorn main:app --host 0.0.0.0 --port 8080 --reload
 ```
 
 6. **访问API**
-- 交互式文档：http://localhost:8000/docs
-- 健康检查：http://localhost:8000/health
-- API信息：http://localhost:8000/api/v1/
+- 交互式文档：http://localhost:8080/docs
+- 健康检查：http://localhost:8080/health
+- API信息：http://localhost:8080/api/v1/
 
 ---
 
@@ -87,12 +87,12 @@ cp .env.example .env
 3. **运行容器**
 ```bash
 # 方式一：使用 .env 文件
-docker run -p 8000:8000 \
+docker run -p 8080:8080 \
   --env-file .env \
   bazi-api:latest
 
 # 方式二：直接传递环境变量
-docker run -p 8000:8000 \
+docker run -p 8080:8080 \
   -e OPENAI_API_KEY=your_api_key \
   -e OPENAI_BASE_URL=https://api.deepseek.com/v1 \
   bazi-api:latest
@@ -100,7 +100,7 @@ docker run -p 8000:8000 \
 
 4. **验证服务**
 ```bash
-curl http://localhost:8000/health
+curl http://localhost:8080/health
 ```
 
 ### Docker Compose（可选）
@@ -114,14 +114,14 @@ services:
     build: .
     container_name: bazi-api
     ports:
-      - "8000:8000"
+      - "8080:8080"
     environment:
       - OPENAI_API_KEY=${OPENAI_API_KEY}
       - OPENAI_BASE_URL=https://api.deepseek.com/v1
-      - PORT=8000
+      - PORT=8080
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
       interval: 30s
       timeout: 10s
       retries: 3
