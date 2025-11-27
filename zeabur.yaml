@@ -1,0 +1,20 @@
+version: v1
+name: BAZI API Server
+description: 八字服务API计算，基于FastAPI和LangChain
+
+build:
+  dockerfile: Dockerfile
+  context: .
+
+ports:
+  - id: web
+    port: 8000
+    protocol: HTTP
+    path: /
+
+envs:
+  - key: OPENAI_API_KEY
+    description: OpenAI API Key
+    required: true
+  - key: PORT
+    value: 8000
