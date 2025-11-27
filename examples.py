@@ -9,7 +9,7 @@ import requests
 import json
 
 # API 基础URL（根据实际部署地址修改）
-BASE_URL = "http://localhost:8000"
+BASE_URL = "https://yulin15.zeabur.app"
 
 # ===== API调用函数 =====
 

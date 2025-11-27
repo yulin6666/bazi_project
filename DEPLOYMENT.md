@@ -227,18 +227,18 @@ docker push yourusername/bazi-api:latest
 
 ```bash
 # 健康检查
-curl https://your-domain.zeabur.app/health
+curl https://yulin15.zeabur.app/health
 
 # API信息
-curl https://your-domain.zeabur.app/api/v1/
+curl https://yulin15.zeabur.app/api/v1/
 
 # 测试计算
-curl -X POST https://your-domain.zeabur.app/api/v1/calculate_bazi \
+curl -X POST https://yulin15.zeabur.app/api/v1/calculate_bazi \
   -H "Content-Type: application/json" \
   -d '{"year":1990,"month":5,"day":15,"hour":14,"minute":30,"gender":1}'
 
 # 测试NLP
-curl -X POST https://your-domain.zeabur.app/api/v1/nlp/bazi \
+curl -X POST https://yulin15.zeabur.app/api/v1/nlp/bazi \
   -H "Content-Type: application/json" \
   -d '{"query":"1990年5月15日14点30分，男"}'
 ```

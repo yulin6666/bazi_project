@@ -128,8 +128,8 @@ Zeabur 会自动重新构建并部署。
 ### Step 4: 验证部署
 
 部署后访问：
-- 健康检查：`https://your-domain.zeabur.app/health`
-- API 文档：`https://your-domain.zeabur.app/docs`
+- 健康检查：`https://yulin15.zeabur.app/health`
+- API 文档：`https://yulin15.zeabur.app/docs`
 
 ## 测试 API 端点
 
@@ -137,7 +137,7 @@ Zeabur 会自动重新构建并部署。
 
 ```bash
 # 直接计算（适用所有方案）
-curl -X POST https://your-domain.zeabur.app/api/v1/calculate_bazi \
+curl -X POST https://yulin15.zeabur.app/api/v1/calculate_bazi \
   -H "Content-Type: application/json" \
   -d '{
     "year": 1990,
@@ -149,7 +149,7 @@ curl -X POST https://your-domain.zeabur.app/api/v1/calculate_bazi \
   }'
 
 # NLP模式（仅方案2、3有效）
-curl -X POST https://your-domain.zeabur.app/api/v1/nlp/bazi \
+curl -X POST https://yulin15.zeabur.app/api/v1/nlp/bazi \
   -H "Content-Type: application/json" \
   -d '{"query": "1990年5月15日14点30分，男"}'
 ```

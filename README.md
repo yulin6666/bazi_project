@@ -79,7 +79,7 @@ docker run -p 8000:8000 -e OPENAI_API_KEY=your_key bazi-api
 ### 1. 直接计算八字（JSON格式）
 
 ```bash
-curl -X POST "https://your-domain.zeabur.app/api/v1/calculate_bazi" \
+curl -X POST "https://yulin15.zeabur.app/api/v1/calculate_bazi" \
      -H "Content-Type: application/json" \
      -d '{
        "year": 1990,
@@ -95,7 +95,7 @@ curl -X POST "https://your-domain.zeabur.app/api/v1/calculate_bazi" \
 ### 2. NLP 自然语言解析
 
 ```bash
-curl -X POST "https://your-domain.zeabur.app/api/v1/nlp/bazi" \
+curl -X POST "https://yulin15.zeabur.app/api/v1/nlp/bazi" \
      -H "Content-Type: application/json" \
      -d '{"query": "我出生于1987年3月28日11点，男"}'
 ```
@@ -107,7 +107,7 @@ curl -X POST "https://your-domain.zeabur.app/api/v1/nlp/bazi" \
 http://localhost:8000/health
 
 # 部署后
-https://your-domain.zeabur.app/health
+https://yulin15.zeabur.app/health
 ```
 
 ## 更轻量级部署（推荐）
@@ -138,14 +138,14 @@ import requests
 # 直接计算
 def calculate_bazi(year, month, day, hour=0, minute=0, gender=1):
     return requests.post(
-        "https://your-domain.zeabur.app/api/v1/calculate_bazi",
+        "https://yulin15.zeabur.app/api/v1/calculate_bazi",
         json={"year": year, "month": month, "day": day, "hour": hour, "minute": minute, "gender": gender}
     ).json()
 
 # NLP计算
 def calculate_bazi_nlp(query):
     return requests.post(
-        "https://your-domain.zeabur.app/api/v1/nlp/bazi",
+        "https://yulin15.zeabur.app/api/v1/nlp/bazi",
         json={"query": query}
     ).json()
 ```
